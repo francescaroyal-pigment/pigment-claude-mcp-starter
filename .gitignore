@@ -1,0 +1,9 @@
+.DS_Store
+.claude/settings.local.json
+
+# Data files often contain names/salaries/etc. that don't belong in a shared
+# repo — keep the folder's README but ignore its contents by default.
+# Deliberately un-ignore a specific file only if it's safe for everyone who
+# can clone this repo.
+data-sources/*
+!data-sources/README.md
