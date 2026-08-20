@@ -20,7 +20,10 @@ The goal: a **self-contained project for a specific workflow in your Pigment app
 
 ### 1. Get the repo
 
-Copy (or clone) this folder to a new name that describes your workflow — one copy per workflow. `git init` inside it if it isn't already a repo.
+This is a **template repository** — one copy per workflow, and the copy is yours to shape:
+
+- **Setting this up for a team?** Click **"Use this template"** on GitHub to create your own repo from it (clean history, fully yours). Customize it for your team's specific workload — adding forecast inputs, auditing a budget, submitting requests — run `/start-project` once to bake in the real app and block IDs, write the workflow skill, and then your team clones *your* repo and inherits everything: the IDs, the rules, the validated workflow.
+- **Just yourself?** Copy or clone the folder to a new name that describes the workflow, and `git init` inside it if it isn't already a repo.
 
 ### 2. Per-person prerequisites
 
@@ -81,6 +84,37 @@ For pushing external data (spreadsheets, CSV exports) into Pigment through this 
 By default this starter relies on Claude Code's built-in permission prompts — every MCP write asks before it runs, which is the right level of friction for a single-connector setup.
 
 If your machine has **multiple connectors authorized** (several Pigment workspaces, or dev + prod), consider the optional guard hooks in [extras/hardening/](extras/hardening/README.md): a connector allowlist that blocks every MCP server except the one this project uses, plus an integrity guard so the allowlist can't be edited away mid-session. That's what stops Claude from reaching for the wrong workspace — most valuable when you're running with permissive settings or pointing dev and prod repos at different connectors.
+
+## Beyond Pigment: using this shape with other tools
+
+Nothing about this structure is Pigment-specific — it's a general pattern for working with any MCP-connected tool, and it grows in two directions:
+
+- **Add other connectors alongside Pigment.** A workflow rarely lives in one system: pull requests from Slack, read a hiring plan from Google Sheets, post confirmations back to a channel. Authorize the extra connector, document it (live data sources go in [data-sources/README.md](data-sources/README.md), IDs and rules in `CLAUDE.md`), and extend your workflow skill with the new steps. `/check-setup` has a slot for probing each additional connector.
+- **Reuse the shape for a different tool entirely.** The system — a `CLAUDE.md` with rules and valid values, a registry of object IDs, a knowledge file of earned lessons, and skills validated by running the workflow manually first — works just as well pointed at a CRM, a ticketing system, or any other MCP server. Copy the starter, swap the connector, keep the discipline.
+
+The parts worth keeping no matter the tool: **one source of truth** for reference data, **registry updated in the same turn** as any change, and **skills earned, not written from scratch**.
+
+## Learn more
+
+**Pigment MCP:**
+
+- [MCP Server overview](https://kb.pigment.com/docs/mcp-server-1) — what the Pigment MCP server is and how to enable it
+- [Supported tools](https://kb.pigment.com/docs/supported-tools) — every MCP tool Pigment exposes, including which ones need Advanced Tools
+- [Connect common MCP clients](https://kb.pigment.com/docs/connect-common-mcp-clients) — Claude, ChatGPT, and other client-specific setup
+- [Connect custom MCP clients](https://kb.pigment.com/docs/connect-a-custom-application) — for building your own integrations
+- [Pigment MCP Server product page](https://www.pigment.com/ai/mcp-server)
+
+**Pigment AI, learning, and community:**
+
+- [Pigment AI overview](https://kb.pigment.com/docs/pigment-ai) — the broader AI feature set (agents, assistants, insights)
+- [Pigment Academy](https://academy.pigment.com/) — self-paced courses, including AI and MCP tracks
+- [Pigment Community](https://community.pigment.com/) — technical tips and peer answers, including MCP prompting patterns
+- [gopigment/ai-plugins](https://github.com/gopigment/ai-plugins) — the plugin marketplace this starter depends on
+
+**Claude side:**
+
+- [Claude Code documentation](https://code.claude.com/docs) — skills, slash commands, hooks, settings
+- [Model Context Protocol](https://modelcontextprotocol.io/) — the open standard underneath all of this
 
 ## When NOT to use this
 
